@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import store from '../store'
+import * as homeActions from '../store/homeActions'
+import { bindActionCreators } from '../redux'
 
 export default class Redux extends Component {
   constructor(props) {
@@ -17,15 +19,18 @@ export default class Redux extends Component {
     this.state.unsubscribe()
   }
 
-  add = () => {
-    store.dispatch({
-      type: 'ADD'
-    })
+  add = payload => {
+    bindActionCreators(homeActions.add, store.dispatch)(payload)
+    // store.dispatch({
+    //   type: 'ADD',
+    //   payload
+    // })
   }
-  minus = () => {
-    store.dispatch({
-      type: 'MINUS'
-    })
+  minus = payload => {
+    bindActionCreators(homeActions.minus, store.dispatch)(payload)
+    // store.dispatch({
+    //   type: 'MINUS'
+    // })
   }
 
   asyAdd = () => {
@@ -74,12 +79,12 @@ export default class Redux extends Component {
 
         {/* <p>{store.getState()}</p> */}
         <p>{store.getState().home}</p>
-        <button onClick={this.add}>add</button>
-        <button onClick={this.minus}>minus</button>
+        <button onClick={() => this.add()}>add</button>
+        <button onClick={() => this.minus()}>minus</button>
         <button onClick={this.asyAdd}>asyAdd</button>
         <button onClick={this.promiseMinus}>promiseMinus</button>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <p>{store.getState().login + ''}</p>
         <button onClick={this.login}>login</button>
         <button onClick={this.loginOut}>loginOut</button>

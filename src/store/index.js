@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from '../redux'
 import { thunk, promise, logger } from '../middlewares'
 
-export const countReducer = (state = 0, { type, payload = 1 }) => {
+export const homeReducer = (state = 0, { type, payload = 1 }) => {
   switch (type) {
     case 'ADD':
       return state + payload
@@ -19,8 +19,6 @@ export const loginReducer = (login = false, { type }) => {
     case 'LOGIN':
       login = true
       return login
-    //如果state是对象
-    // return {...state, ...newState};
     case 'LOGINOUT':
       login = false
       return login
@@ -29,5 +27,7 @@ export const loginReducer = (login = false, { type }) => {
   }
 }
 
-export default createStore(combineReducers({ home: countReducer, login: loginReducer }), applyMiddleware(thunk, promise, logger))
-// export default createStore(countReducer, applyMiddleware(thunk, promise, logger))
+export default createStore(
+  combineReducers({ home: homeReducer, login: loginReducer }),
+  applyMiddleware(thunk, promise, logger)
+)
